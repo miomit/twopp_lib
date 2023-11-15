@@ -1,0 +1,15 @@
+name: twopp_lib
+description: Math Lib.
+version: 0.0.1
+repository: https://github.com/yuraMovsesyan/twopp_lib
+
+environment:
+  sdk: ^3.1.5
+
+# Add regular dependencies here.
+dependencies:
+  # path: ^1.8.0
+
+dev_dependencies:
+  lints: ^2.0.0
+  test: ^1.21.0
