@@ -205,6 +205,72 @@ class Matrix {
     return lambda.getInv();
   }
 
+  Matrix? getInv() {
+    if (_row != column) {
+      return null;
+    }
+
+    var res = Matrix.identity(_row);
+    var matrix = clone();
+
+    for (int dioganal = 0; dioganal < matrix.row; dioganal++) {
+      if (matrix[dioganal][dioganal].numerator != 0) {
+        int? rowNoZeroElem;
+
+        for (var i = 1; i < matrix.row - dioganal; i++) {
+          if (matrix[dioganal + i][dioganal].numerator == 0) {
+            rowNoZeroElem = dioganal + i;
+            break;
+          }
+        }
+
+        if (rowNoZeroElem case int row2) {
+          res.swapRows(dioganal, row2);
+          matrix.swapRows(dioganal, row2);
+        }
+      }
+
+      var inverseDiagonalElement = matrix[dioganal][dioganal].getInv();
+
+      res.rowMulFrac(dioganal, inverseDiagonalElement);
+      matrix.rowMulFrac(dioganal, inverseDiagonalElement);
+
+      for (int i = 1; i < matrix.row - dioganal; i++) {
+        res.rowAddRowMulFrac(
+          dioganal + i,
+          dioganal,
+          matrix[dioganal + i][dioganal].getNeg(),
+        );
+        matrix.rowAddRowMulFrac(
+          dioganal + i,
+          dioganal,
+          matrix[dioganal + i][dioganal].getNeg(),
+        );
+      }
+    }
+
+    for (int dioganal = matrix.row - 1; dioganal >= 0; dioganal--) {
+      if (matrix[dioganal][dioganal].numerator == 0) {
+        return null;
+      }
+
+      for (int i = 1; i < dioganal; i++) {
+        res.rowAddRowMulFrac(
+          dioganal - i,
+          dioganal,
+          matrix[dioganal - i][dioganal].getNeg(),
+        );
+        matrix.rowAddRowMulFrac(
+          dioganal - i,
+          dioganal,
+          matrix[dioganal - i][dioganal].getNeg(),
+        );
+      }
+    }
+
+    return res;
+  }
+
   @override
   String toString() {
     String res = "";
