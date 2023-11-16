@@ -27,7 +27,7 @@ class Fraction {
     return this;
   }
 
-  Fraction cut() => Fraction(numerator, denominator)._cut();
+  Fraction getCut() => Fraction(numerator, denominator)._cut();
 
   Fraction operator +(Fraction other) => Fraction(
         numerator * other.denominator + other.numerator * denominator,
