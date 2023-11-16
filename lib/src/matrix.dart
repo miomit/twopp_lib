@@ -166,13 +166,14 @@ class Matrix {
     }
 
     var lambda = Fraction.num(1);
+    var matrix = clone();
 
-    for (int dioganal = 0; dioganal < _row; dioganal++) {
-      if (this[dioganal][dioganal].numerator != 0) {
+    for (int dioganal = 0; dioganal < matrix.row; dioganal++) {
+      if (matrix[dioganal][dioganal].numerator != 0) {
         int? rowNoZeroElem;
 
-        for (var i = 1; i < _row - dioganal; i++) {
-          if (this[dioganal + i][dioganal].numerator == 0) {
+        for (var i = 1; i < matrix.row - dioganal; i++) {
+          if (matrix[dioganal + i][dioganal].numerator == 0) {
             rowNoZeroElem = dioganal + i;
             break;
           }
@@ -180,24 +181,24 @@ class Matrix {
 
         if (rowNoZeroElem case int row2) {
           lambda.numerator *= -1;
-          swapRows(dioganal, row2);
+          matrix.swapRows(dioganal, row2);
         } else {
           lambda.numerator = 0;
           break;
         }
       }
 
-      var inverseDiagonalElement = this[dioganal][dioganal].getInv();
+      var inverseDiagonalElement = matrix[dioganal][dioganal].getInv();
 
-      rowMulFrac(dioganal, inverseDiagonalElement);
+      matrix.rowMulFrac(dioganal, inverseDiagonalElement);
 
       lambda *= inverseDiagonalElement;
 
-      for (int i = 1; i < _row - dioganal; i++) {
-        rowAddRowMulFrac(
+      for (int i = 1; i < matrix.row - dioganal; i++) {
+        matrix.rowAddRowMulFrac(
           dioganal + i,
           dioganal,
-          this[dioganal + i][dioganal].getNeg(),
+          matrix[dioganal + i][dioganal].getNeg(),
         );
       }
     }
