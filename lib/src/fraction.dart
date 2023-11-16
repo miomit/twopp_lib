@@ -6,6 +6,7 @@ class Fraction {
   }
   Fraction.num(int num) : this(num, 1);
   Fraction.zero() : this.num(0);
+  Fraction.clone(Fraction frac) : this(frac.numerator, frac.denominator);
 
   double getResult() => numerator / denominator;
 
