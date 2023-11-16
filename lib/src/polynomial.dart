@@ -102,6 +102,12 @@ class Polynomial {
     return res;
   }
 
+  Fraction operator [](int index) => _coefficients[index];
+
+  void operator []=(int index, Fraction frac) {
+    _coefficients[index] = frac;
+  }
+
   @override
   String toString() {
     var res = "";
