@@ -156,8 +156,12 @@ class Matrix {
     return this;
   }
 
-  Fraction det() {
-    if (_row == column && _row == 2) {
+  Fraction? det() {
+    if (_row != column) {
+      return null;
+    }
+
+    if (_row == 2) {
       return this[0][0] * this[1][1] - this[0][1] * this[1][0];
     }
 
