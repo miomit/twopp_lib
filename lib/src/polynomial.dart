@@ -7,6 +7,8 @@ class Polynomial {
 
   List<Fraction> get coefficients => _coefficients;
 
+  int get count => _coefficients.length;
+
   Polynomial(this._coefficients) {
     for (int i = _coefficients.length - 1; i >= 0; i--) {
       if (_coefficients[i].numerator != 0) {
