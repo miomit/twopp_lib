@@ -156,6 +156,51 @@ class Matrix {
     return this;
   }
 
+  Fraction det() {
+    if (_row == column && _row == 2) {
+      return this[0][0] * this[1][1] - this[0][1] * this[1][0];
+    }
+
+    var lambda = Fraction.num(1);
+
+    for (int dioganal = 0; dioganal < _row; dioganal++) {
+      if (this[dioganal][dioganal].numerator != 0) {
+        int? rowNoZeroElem;
+
+        for (var i = 1; i < _row - dioganal; i++) {
+          if (this[dioganal + i][dioganal].numerator == 0) {
+            rowNoZeroElem = dioganal + i;
+            break;
+          }
+        }
+
+        if (rowNoZeroElem case int row2) {
+          lambda.numerator *= -1;
+          swapRows(dioganal, row2);
+        } else {
+          lambda.numerator = 0;
+          break;
+        }
+      }
+
+      var inverseDiagonalElement = this[dioganal][dioganal].getInv();
+
+      rowMulFrac(dioganal, inverseDiagonalElement);
+
+      lambda *= inverseDiagonalElement;
+
+      for (int i = 1; i < _row - dioganal; i++) {
+        rowAddRowMulFrac(
+          dioganal + i,
+          dioganal,
+          this[dioganal + i][dioganal].getNeg(),
+        );
+      }
+    }
+
+    return lambda.getInv();
+  }
+
   @override
   String toString() {
     String res = "";
