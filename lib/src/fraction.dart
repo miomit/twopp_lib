@@ -27,6 +27,7 @@ class Fraction {
     return this;
   }
 
+  Fraction getNeg() => Fraction(-numerator, denominator);
   Fraction getInv() => Fraction(denominator, numerator);
 
   Fraction operator +(Fraction other) => Fraction(
