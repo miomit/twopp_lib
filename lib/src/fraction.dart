@@ -1,5 +1,3 @@
-import 'package:twopp_lib/src/helper.dart';
-
 class Fraction {
   int numerator, denominator;
 
@@ -17,7 +15,7 @@ class Fraction {
       denominator *= -1;
     }
 
-    int nod = gcd(numerator, denominator);
+    int nod = numerator.gcd(denominator);
 
     if (nod == 1) return this;
 
